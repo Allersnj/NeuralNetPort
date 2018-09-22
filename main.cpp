@@ -1,6 +1,4 @@
 #include <iostream>
-#include "SFML\Main.hpp"
-#include "SFML\Graphics.hpp"
 #include "Matrix.h"
 #include "NeuralNetwork.h"
 
@@ -31,20 +29,16 @@ int main()
 	training.push_back(data4);
 	NeuralNetwork brain(2, 2, 1);
 	RandomGenerator random(0, 4);
-	sf::RenderWindow window;
-	window.create(sf::VideoMode(400, 400), "Neural Network");
 	
-	while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+	
+	for (int i = 0; i < 1000; ++i)
 	{
-		for (int i = 0; i < 1000; ++i)
-		{
-			int index = floorf(random.get());
-			brain.train(training[index].inputs, training[index].outputs);
-		}
-
-		std::vector<float> shouldBeTrue = brain.predict(std::vector<float>{0.0f, 1.0f});
-		std::cout << shouldBeTrue[0] << '\n';
-		system("pause");
+		int index = floorf(random.get());
+		brain.train(training[index].inputs, training[index].outputs);
 	}
+
+	std::vector<float> shouldBeTrue = brain.predict(std::vector<float>{0.0f, 1.0f});
+	std::cout << shouldBeTrue[0] << '\n';
+	system("pause");
 
 }
